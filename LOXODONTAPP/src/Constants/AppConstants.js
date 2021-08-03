@@ -77,7 +77,7 @@ export const ERROR_CODES = {
 
 }
 
-export const BASE_URL = 'http://d49592377dde.ngrok.io'
+export const BASE_URL = 'http://02ffeab2a538.ngrok.io'
 
 
 export const ROUTES = {

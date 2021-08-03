@@ -199,12 +199,11 @@ const DataBaseFormScreen = props => {
 
   const handleSubmit = async () => {
     if (
-      name &&
+      
       age &&
       tusks &&
       gender &&
       tail &&
-      ears &&
       comments &&
       imageArray.length > 0
     ) {
@@ -224,7 +223,7 @@ const DataBaseFormScreen = props => {
             comments,
           };
           await dispatch(actionCreateElephant(data));
-          props.navigation.push('SuccessScreen');
+          props.navigation.push('IdentificationScreen',{item:data});
         } catch (error) {
           Alert.alert(MESSAGES.ERROR, error.message, [{text: MESSAGES.OK}]);
         }

@@ -16,6 +16,13 @@ import elephantIcon from '../../Assets/Images/Icons/elephant.png';
 import {moderateScale} from 'react-native-size-matters';
 import {COLORS} from '../../Constants/AppConstants';
 import {useSelector, useDispatch} from 'react-redux';
+import {
+  GenderOptions,
+  AgeOptions,
+  EarOptions,
+  TuskOptions,
+} from '../../Data/PickerOptions';
+import {Picker} from '@react-native-picker/picker';
 
 const listData = [
   {
@@ -45,7 +52,7 @@ const listData = [
 const renderItem = ({item}, handleSelected) => {
   return (
     <TouchableOpacity
-      onPress={()=>handleSelected(item)}
+      onPress={() => handleSelected(item)}
       style={{
         flexDirection: 'row',
         maxHeight: moderateScale(220),
@@ -143,47 +150,46 @@ const DataBaseScreen = props => {
   console.log('props', props);
 
   const [elephantList, setElephantList] = useState([]);
-  const [age, setAge] = useState('');
-  const [ears, setEars] = useState('');
-  const [gender, setGender] = useState('');
-  const [tusks, setTusks] = useState('');
+  const [age, setAge] = useState('Select Age');
+  const [ears, setEars] = useState('Select Ears');
+  const [gender, setGender] = useState('Select Gender');
+  const [tusks, setTusks] = useState('Select Tusks');
   const [specialFeatures, setSpecialFeatures] = useState('');
   const [reserveArea, setReserveArea] = useState('');
+  const [filters, setFilters] = useState({});
 
   useEffect(() => {
     if (elephantData && elephantList.length === 0) {
-      console.log('CALLED');
+      console.log('CALLED', elephantData);
       setElephantList(elephantData);
     }
   }, []);
   const dispatch = useDispatch();
   const elephantData = useSelector(state => state.elephant.elephantList);
 
-  const handleSelected = (item) => {
-    props.navigation.push('DataBaseFormScreen',{item:item});
+  const handleSelected = item => {
+    props.navigation.push('DataBaseFormScreen', {item: item});
   };
   const applyFiltering = (value, setValue, searchKey) => {
+    const previousFilters = filters;
     console.log('value', value, searchKey);
-    if (value) {
-      const filteredData = elephantData.filter(item => {
-        if (
-          item[searchKey].toLowerCase().match(value) &&
-          item.age.toLowerCase().match(age) &&
-          item.tusks.toLowerCase().match(tusks) &&
-          item.ears.toLowerCase().match(ears) &&
-          item.gender.toLowerCase().match(gender)
-        ) {
-          return true;
-        } else {
-          return false;
-        }
-      });
-      console.log('eple', filteredData);
-      setElephantList(filteredData);
-      setValue(value);
-    } else {
+    if (value === 'initialValue') {
       setValue(value);
       setElephantList(elephantData);
+      return;
+    } else {
+      previousFilters.searchKey = value;
+      const filtererdData = elephantData.filter(item => {
+        // const values= {gender:'male',age:'old',tail:'tail',name:'elephant78'}
+        for (let key in previousFilters) {
+          if (item[key] === undefined || item[key] != previousFilters[key])
+            return false;
+        }
+        return true;
+      });
+      console.log('eple', filtererdData);
+      setElephantList(filtererdData);
+      setValue(value);
     }
   };
 
@@ -240,41 +246,77 @@ const DataBaseScreen = props => {
             value={reserveArea}
           />
         </View>
-        <View style={{...styles.pickerView, minWidth: moderateScale(100)}}>
-          <TextInput
-            placeholderTextColor={COLORS.BODY_MUTED}
-            style={styles.input}
-            placeholder="Age"
-            onChangeText={text => applyFiltering(text, setAge, 'age')}
-            value={age}
-          />
+        <View style={{...styles.pickerView, minWidth: moderateScale(190)}}>
+          <Picker
+            style={{}}
+            itemStyle={{fontSize: moderateScale(10), color: COLORS.BLACK}}
+            mode="dropdown"
+            onValueChange={value => {
+              applyFiltering(value, setAge, 'age');
+            }}
+            selectedValue={age}>
+            {AgeOptions.map(item => (
+              <Picker.Item
+                style={{backgroundColor: 'red'}}
+                value={item.value}
+                label={item.name}
+              />
+            ))}
+          </Picker>
         </View>
-        <View style={{...styles.pickerView, minWidth: moderateScale(100)}}>
-          <TextInput
-            placeholderTextColor={COLORS.BODY_MUTED}
-            style={styles.input}
-            placeholder="Ears"
-            onChangeText={text => applyFiltering(text, setEars, 'ears')}
-            value={ears}
-          />
+        <View style={{...styles.pickerView, minWidth: moderateScale(190)}}>
+          <Picker
+            style={{}}
+            itemStyle={{fontSize: moderateScale(10), color: COLORS.BLACK}}
+            mode="dropdown"
+            onValueChange={value => {
+              applyFiltering(value, setEars, 'ears');
+            }}
+            selectedValue={age}>
+            {EarOptions.map(item => (
+              <Picker.Item
+                style={{backgroundColor: 'red'}}
+                value={item.value}
+                label={item.name}
+              />
+            ))}
+          </Picker>
         </View>
-        <View style={{...styles.pickerView, minWidth: moderateScale(100)}}>
-          <TextInput
-            placeholderTextColor={COLORS.BODY_MUTED}
-            style={styles.input}
-            placeholder="Gender"
-            onChangeText={text => applyFiltering(text, setGender, 'gender')}
-            value={gender}
-          />
+        <View style={{...styles.pickerView, minWidth: moderateScale(190)}}>
+          <Picker
+            style={{}}
+            itemStyle={{fontSize: moderateScale(10), color: COLORS.BLACK}}
+            mode="dropdown"
+            onValueChange={value => {
+              applyFiltering(value, setGender, 'gender');
+            }}
+            selectedValue={gender}>
+            {GenderOptions.map(item => (
+              <Picker.Item
+                style={{backgroundColor: 'red'}}
+                value={item.value}
+                label={item.name}
+              />
+            ))}
+          </Picker>
         </View>
-        <View style={{...styles.pickerView, minWidth: moderateScale(100)}}>
-          <TextInput
-            placeholderTextColor={COLORS.BODY_MUTED}
-            style={styles.input}
-            placeholder="Tusks"
-            onChangeText={text => applyFiltering(text, setTusks, 'tusks')}
-            value={tusks}
-          />
+        <View style={{...styles.pickerView, minWidth: moderateScale(190)}}>
+          <Picker
+            style={{}}
+            itemStyle={{fontSize: moderateScale(10), color: COLORS.BLACK}}
+            mode="dropdown"
+            onValueChange={value => {
+              applyFiltering(value, setTusks, 'tusks');
+            }}
+            selectedValue={tusks}>
+            {TuskOptions.map(item => (
+              <Picker.Item
+                style={{backgroundColor: 'red'}}
+                value={item.value}
+                label={item.name}
+              />
+            ))}
+          </Picker>
         </View>
         <View style={styles.pickerView}>
           <TextInput

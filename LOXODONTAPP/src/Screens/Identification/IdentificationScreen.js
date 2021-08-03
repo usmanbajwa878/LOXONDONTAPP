@@ -20,6 +20,7 @@ import {COLORS} from '../../Constants/AppConstants';
 import ModalView from '../../Components/ModalView';
 
 const IdentificationScreen = props => {
+
   const [showPopUp, setShowPop] = useState(false);
   const [tear, setTear] = useState(false);
   const [hole, setHole] = useState(false);
@@ -29,6 +30,7 @@ const IdentificationScreen = props => {
     setShowPop(true);
   };
   const handleConfirm = () => {
+    setShowPop(false);
     const data = {
       mostProminentTear: tear,
       mostProminentHole: hole,
@@ -78,8 +80,8 @@ const IdentificationScreen = props => {
             </View>
             <ImageBackground
               style={{
-                width: moderateScale(200),
-                height: moderateScale(400),
+                width: moderateScale(350),
+                height: moderateScale(350),
               }}
               source={outlined}>
                 {/* 1st section */}
@@ -213,9 +215,7 @@ const IdentificationScreen = props => {
               />
             </TouchableOpacity> */}
             <TouchableOpacity
-              onPress={() => {
-                props.navigation.push('DataBaseScreen');
-              }}
+              onPress={handleConfirm}
               style={styles.buttonContainer}>
               <Text style={styles.buttonText}>Next</Text>
             </TouchableOpacity>

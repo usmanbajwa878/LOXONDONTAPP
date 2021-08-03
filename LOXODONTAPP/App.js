@@ -22,8 +22,7 @@ import STORE from './src/Store/index';
 import {PersistGate} from 'redux-persist/integration/react';
 
 const App = () => {
-  STORE.store;
-  STORE.persistor;
+
 
   return (
     <Provider store={STORE.store}>
