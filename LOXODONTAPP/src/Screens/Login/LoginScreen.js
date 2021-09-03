@@ -28,8 +28,8 @@ const LoginScreen = props => {
   const [check, setCheck] = useState(false);
   const [showPassword, setShowPassword] = useState(true);
   // const [name, setName] = useState('');
-  const [email, setEmail] = useState('abcd1234@gmail.com');
-  const [password, setPassword] = useState('12345678');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const netInfo = useNetInfo();

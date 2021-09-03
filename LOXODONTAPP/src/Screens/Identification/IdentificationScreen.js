@@ -85,13 +85,17 @@ const IdentificationScreen = props => {
               }}
               source={outlined}>
                 {/* 1st section */}
-              <View style={{flexDirection:'row'}}>
+              <View style={{flexDirection:'row',marginHorizontal:70,justifyContent:'space-between'}}>
                 <TouchableOpacity
                   style={{
                     backgroundColor: 'transparent',
-                    height: moderateScale(70),
-                    marginTop: moderateScale(50),
-                    width: moderateScale(50),
+                    height: moderateScale(10),
+                    marginTop: moderateScale(20),
+                    width: moderateScale(10),
+                    borderWidth:1,
+                    borderColor:'transparent',
+                    borderRadius:5,
+                    marginLeft:20
                   }}
                   onPress={() => handlePopup()}
                   // onPress={() => alert('pressed head left')}
@@ -99,107 +103,348 @@ const IdentificationScreen = props => {
                 <TouchableOpacity
                   style={{
                     backgroundColor: 'transparent',
-                    height: moderateScale(70),
-                    marginTop: moderateScale(50),
-                    width: moderateScale(50),
+                    height: moderateScale(10),
+                    marginTop: moderateScale(20),
+                    width: moderateScale(10),
+                    borderWidth:1,
+                    borderColor:'transparent',
+                    borderRadius:5,
+                    marginRight:20
                   }}
                   onPress={() => handlePopup()}
                   // onPress={() => alert('pressed head 2nd part')}
                 />
-                 <TouchableOpacity
-                  style={{
-                    backgroundColor: 'transparent',
-                    height: moderateScale(70),
-                    marginTop: moderateScale(50),
-                    width: moderateScale(50),
-                  }}
-                  onPress={() => handlePopup()}
-                  // onPress={() => alert('pressed head 3rd part')}
-                />
-                 <TouchableOpacity
-                  style={{
-                    backgroundColor: 'transparent',
-                    height: moderateScale(70),
-                    marginTop: moderateScale(50),
-                    width: moderateScale(50),
-                  }}
-                  onPress={() => handlePopup()}
-                  // onPress={() => alert('pressed head 4th part')}
-                />
+              
               </View>
-                {/* 2nd section*/}
-              <TouchableOpacity
-                  style={{
-                    backgroundColor: 'transparent',
-                    height: moderateScale(50),
-                    width: moderateScale(50),
-                    alignSelf:'center'
-                  }}
-                  onPress={() => handlePopup()}
-                  // onPress={() => alert('pressed neck')}
-                />
-                       {/* 3rd section*/}
-                  <View style={{flexDirection:'row'}}>
+              <View style={{flexDirection:'row',marginHorizontal:70,justifyContent:'space-between'}}>
                 <TouchableOpacity
                   style={{
                     backgroundColor: 'transparent',
-                    height: moderateScale(70),
-                    width: moderateScale(50),
+                    height: moderateScale(10),
+                    marginTop: moderateScale(20),
+                    width: moderateScale(10),
+                    borderWidth:1,
+                    borderColor:'transparent',
+                    borderRadius:5,
+                    marginLeft:20
                   }}
                   onPress={() => handlePopup()}
-                  // onPress={() => alert('pressed face left')}
+                  // onPress={() => alert('pressed head left')}
                 />
                 <TouchableOpacity
                   style={{
                     backgroundColor: 'transparent',
-                    height: moderateScale(70),
-                    width: moderateScale(50),
+                    height: moderateScale(10),
+                    marginTop: moderateScale(20),
+                    width: moderateScale(10),
+                    borderWidth:1,
+                    borderColor:'transparent',
+                    borderRadius:5,
+                    marginRight:20
                   }}
                   onPress={() => handlePopup()}
-                  // onPress={() => alert('pressed left ear')}
+                  // onPress={() => alert('pressed head 2nd part')}
                 />
-                 <TouchableOpacity
-                  style={{
-                    backgroundColor: 'transparent',
-                    height: moderateScale(70),
-                    width: moderateScale(50),
-                  }}
-                  onPress={() => handlePopup()}
-                  // onPress={() => alert('pressed right ear')}
-                />
-                 <TouchableOpacity
-                  style={{
-                    backgroundColor: 'transparent',
-                    height: moderateScale(70),
-                    width: moderateScale(50),
-                  }}
-                  onPress={() => handlePopup()}
-                  // onPress={() => alert('pressed right face')}
-                />
+              
               </View>
-                     {/* 4th section*/}
-              <View style={{flexDirection:'row'}}>
-                 <TouchableOpacity
+              <View style={{flexDirection:'row',marginHorizontal:70,justifyContent:'space-between'}}>
+                <TouchableOpacity
                   style={{
                     backgroundColor: 'transparent',
-                    height: moderateScale(70),
-                    marginTop: moderateScale(50),
-                    width: moderateScale(100),
+                    height: moderateScale(10),
+                    marginTop: moderateScale(20),
+                    width: moderateScale(10),
+                    borderWidth:1,
+                    borderColor:'transparent',
+                    borderRadius:5,
+                    marginLeft:20
                   }}
                   onPress={() => handlePopup()}
-                  // onPress={() => alert('pressed whole elephant left')}
+                  // onPress={() => alert('pressed head left')}
                 />
-                 <TouchableOpacity
+                <TouchableOpacity
                   style={{
                     backgroundColor: 'transparent',
-                    height: moderateScale(70),
-                    marginTop: moderateScale(50),
-                    width: moderateScale(100),
+                    height: moderateScale(10),
+                    marginTop: moderateScale(20),
+                    width: moderateScale(10),
+                    borderWidth:1,
+                    borderColor:'transparent',
+                    borderRadius:5,
+                    marginRight:25
                   }}
                   onPress={() => handlePopup()}
-                  // onPress={() => alert('pressed whole elephant right')}
+                  // onPress={() => alert('pressed head 2nd part')}
                 />
+              
               </View>
+
+              
+
+
+
+
+              <View style={{flexDirection:'row',marginHorizontal:70,justifyContent:'space-between'}}>
+                <TouchableOpacity
+                  style={{
+                    backgroundColor: 'transparent',
+                    height: moderateScale(10),
+                    marginTop: moderateScale(10),
+                    width: moderateScale(10),
+                    borderWidth:1,
+                    borderColor:'transparent',
+                    borderRadius:5,
+                    marginLeft:35
+                  }}
+                  onPress={() => handlePopup()}
+                  // onPress={() => alert('pressed head left')}
+                />
+                <TouchableOpacity
+                  style={{
+                    backgroundColor: 'transparent',
+                    height: moderateScale(10),
+                    marginTop: moderateScale(10),
+                    width: moderateScale(10),
+                    borderWidth:1,
+                    borderColor:'transparent',
+                    borderRadius:5,
+                    marginRight:45
+                  }}
+                  onPress={() => handlePopup()}
+                  // onPress={() => alert('pressed head 2nd part')}
+                />
+              
+              </View>
+
+              <View style={{flexDirection:'row',marginHorizontal:130,justifyContent:'space-between'}}>
+                <TouchableOpacity
+                  style={{
+                    backgroundColor: 'transparent',
+                    height: moderateScale(10),
+                    marginTop: moderateScale(-30),
+                    width: moderateScale(10),
+                    borderWidth:1,
+                    borderColor:'transparent',
+                    borderRadius:5,
+                    marginLeft:20
+                  }}
+                  onPress={() => handlePopup()}
+                  // onPress={() => alert('pressed head left')}
+                />
+                <TouchableOpacity
+                  style={{
+                    backgroundColor: 'transparent',
+                    height: moderateScale(10),
+                    marginTop: moderateScale(-30),
+                    width: moderateScale(10),
+                    borderWidth:1,
+                    borderColor:'transparent',
+                    borderRadius:5,
+                    marginRight:20
+                  }}
+                  onPress={() => handlePopup()}
+                  // onPress={() => alert('pressed head 2nd part')}
+                />
+              
+              </View>
+
+              <View style={{flexDirection:'row',marginHorizontal:130,justifyContent:'space-between'}}>
+                <TouchableOpacity
+                  style={{
+                    backgroundColor: 'transparent',
+                    height: moderateScale(10),
+                    marginTop: moderateScale(2),
+                    width: moderateScale(10),
+                    borderWidth:1,
+                    borderColor:'transparent',
+                    borderRadius:5,
+                    marginLeft:20
+                  }}
+                  onPress={() => handlePopup()}
+                  // onPress={() => alert('pressed head left')}
+                />
+                <TouchableOpacity
+                  style={{
+                    backgroundColor: 'transparent',
+                    height: moderateScale(10),
+                    marginTop: moderateScale(2),
+                    width: moderateScale(10),
+                    borderWidth:1,
+                    borderColor:'transparent',
+                    borderRadius:5,
+                    marginRight:20
+                  }}
+                  onPress={() => handlePopup()}
+                  // onPress={() => alert('pressed head 2nd part')}
+                />
+              
+              </View>
+
+
+              <View style={{flexDirection:'row',marginHorizontal:130,justifyContent:'space-between'}}>
+                <TouchableOpacity
+                  style={{
+                    backgroundColor: 'transparent',
+                    height: moderateScale(10),
+                    marginTop: moderateScale(20),
+                    width: moderateScale(10),
+                    borderWidth:1,
+                    borderColor:'transparent',
+                    borderRadius:5,
+                    marginLeft:20
+                  }}
+                  onPress={() => handlePopup()}
+                  // onPress={() => alert('pressed head left')}
+                />
+                <TouchableOpacity
+                  style={{
+                    backgroundColor: 'transparent',
+                    height: moderateScale(10),
+                    marginTop: moderateScale(20),
+                    width: moderateScale(10),
+                    borderWidth:1,
+                    borderColor:'transparent',
+                    borderRadius:5,
+                    marginRight:25
+                  }}
+                  onPress={() => handlePopup()}
+                  // onPress={() => alert('pressed head 2nd part')}
+                />
+              
+              </View>
+
+{/* left RIGHT */}
+<View style={{flexDirection:'row',marginHorizontal:50,justifyContent:'space-between'}}>
+                <TouchableOpacity
+                  style={{
+                    backgroundColor: 'transparent',
+                    height: moderateScale(10),
+                    marginTop: moderateScale(50),
+                    width: moderateScale(10),
+                    borderWidth:1,
+                    borderColor:'transparent',
+                    borderRadius:5,
+                    marginLeft:10
+                  }}
+                  onPress={() => handlePopup()}
+                  // onPress={() => alert('pressed head left')}
+                />
+                <TouchableOpacity
+                  style={{
+                    backgroundColor: 'transparent',
+                    height: moderateScale(10),
+                    marginTop: moderateScale(50),
+                    width: moderateScale(10),
+                    borderWidth:1,
+                    borderColor:'transparent',
+                    borderRadius:5,
+                    marginRight:20
+                  }}
+                  onPress={() => handlePopup()}
+                  // onPress={() => alert('pressed head 2nd part')}
+                />
+              
+              </View>
+
+              <View style={{flexDirection:'row',marginHorizontal:50,justifyContent:'space-between'}}>
+                <TouchableOpacity
+                  style={{
+                    backgroundColor: 'transparent',
+                    height: moderateScale(10),
+                    marginTop: moderateScale(40),
+                    width: moderateScale(10),
+                    borderWidth:1,
+                    borderColor:'transparent',
+                    borderRadius:5,
+                    marginLeft:20
+                  }}
+                  onPress={() => handlePopup()}
+                  // onPress={() => alert('pressed head left')}
+                />
+                <TouchableOpacity
+                  style={{
+                    backgroundColor: 'transparent',
+                    height: moderateScale(10),
+                    marginTop: moderateScale(40),
+                    width: moderateScale(10),
+                    borderWidth:1,
+                    borderColor:'transparent',
+                    borderRadius:5,
+                    marginRight:30
+                  }}
+                  onPress={() => handlePopup()}
+                  // onPress={() => alert('pressed head 2nd part')}
+                />
+              
+              </View>
+
+              <View style={{flexDirection:'row',marginHorizontal:110,justifyContent:'space-between'}}>
+                <TouchableOpacity
+                  style={{
+                    backgroundColor: 'transparent',
+                    height: moderateScale(10),
+                    marginTop: moderateScale(-10),
+                    width: moderateScale(10),
+                    borderWidth:1,
+                    borderColor:'transparent',
+                    borderRadius:5,
+                    marginLeft:10
+                  }}
+                  onPress={() => handlePopup()}
+                  // onPress={() => alert('pressed head left')}
+                />
+                <TouchableOpacity
+                  style={{
+                    backgroundColor: 'transparent',
+                    height: moderateScale(10),
+                    marginTop: moderateScale(-10),
+                    width: moderateScale(10),
+                    borderWidth:1,
+                    borderColor:'transparent',
+                    borderRadius:5,
+                    marginRight:15
+                  }}
+                  onPress={() => handlePopup()}
+                  // onPress={() => alert('pressed head 2nd part')}
+                />
+              
+              </View>
+              <View style={{flexDirection:'row',marginHorizontal:110,justifyContent:'space-between'}}>
+                <TouchableOpacity
+                  style={{
+                    backgroundColor: 'transparent',
+                    height: moderateScale(10),
+                    marginTop: moderateScale(-50),
+                    width: moderateScale(10),
+                    borderWidth:1,
+                    borderColor:'transparent',
+                    borderRadius:5,
+                    marginLeft:10
+                  }}
+                  onPress={() => handlePopup()}
+                  // onPress={() => alert('pressed head left')}
+                />
+                <TouchableOpacity
+                  style={{
+                    backgroundColor: 'transparent',
+                    height: moderateScale(10),
+                    marginTop: moderateScale(-50),
+                    width: moderateScale(10),
+                    borderWidth:1,
+                    borderColor:'transparent',
+                    borderRadius:5,
+                    marginRight:15
+                  }}
+                  onPress={() => handlePopup()}
+                  // onPress={() => alert('pressed head 2nd part')}
+                />
+              
+              </View>
+
+
+              
+
+
             </ImageBackground>
             {/* <TouchableOpacity
               onPress={() => handlePopup()}
