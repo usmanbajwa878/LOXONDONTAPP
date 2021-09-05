@@ -46,10 +46,11 @@ const listData = [
   },
 ];
 
-const renderItem = ({item}) => {
+const renderItem = ({item},props) => {
   console.log('item', item);
   return (
-    <View
+    <TouchableOpacity
+    onPress={()=>props.navigation.push('PreviewElephant',{item:item,userInteraction:true})}
       style={{
         flexDirection: 'row',
         maxHeight: moderateScale(220),
@@ -57,7 +58,7 @@ const renderItem = ({item}) => {
         justifyContent: 'space-between',
       }}>
       <View style={styles.itemImageContainer}>
-        {item.images.length > 0 ? (
+        {item.images && item.images.length > 0 ? (
           <Image
             resizeMethod="resize"
             resizeMode="cover"
@@ -120,7 +121,7 @@ const renderItem = ({item}) => {
           <Text style={{padding: 5}}>{item.comment}</Text>
         </View>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 
@@ -135,6 +136,7 @@ const DataBaseAddScreen = props => {
   const specificElephants = useSelector(
     state => state.elephant.specificElephants,
   );
+  const USER_ID =useSelector(state => state.auth.user.userId)
 
   const selectedElephant = props.route.params?.selectedElephant
     ? props.route.params?.selectedElephant
@@ -143,19 +145,24 @@ const DataBaseAddScreen = props => {
   console.log('SPECIFIC ', specificElephants);
 
   useEffect(() => {
-    if (props.route?.params?.showPopUp) {
-      setShowPop(true);
-    }
+   const popUptimer = setTimeout(()=>{
+      if (specificElephants &&  specificElephants.length === 0) {
+        setShowPop(true);
+      }
+    },3000);
+    return ()=>clearTimeout(popUptimer);
+    
   }, [props]);
   
   const handleAddElephant = async() => {
     selectedElephant.name = elephantName;
-
+    selectedElephant.userId = USER_ID
     try {
       if (netInfo.isConnected) {
        await  dispatch(actionCreateElephant(selectedElephant));
            setShowPop(false);
-    setShowAddElephant(false);
+         setShowAddElephant(false);
+         props.navigation.push('SuccessScreen')
       }
     } catch (error) {
       console.log('error', error);
@@ -189,7 +196,7 @@ const DataBaseAddScreen = props => {
               fontWeight: '600',
               color: COLORS.GREEN,
             }}>
-            Add Elephant
+            Results
           </Text>
         </View>
         <TouchableOpacity
@@ -203,7 +210,7 @@ const DataBaseAddScreen = props => {
           />
         </TouchableOpacity>
       </View>
-      <TouchableOpacity
+      {/* <TouchableOpacity
         onPress={() => props.navigation.push('AddElephantScreen')}
         style={styles.addButtonContainer}>
         <View
@@ -228,7 +235,7 @@ const DataBaseAddScreen = props => {
             +
           </Text>
         </View>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
       <Text
         style={{
           marginHorizontal: moderateScale(20),
@@ -238,7 +245,7 @@ const DataBaseAddScreen = props => {
         <FlatList
           showsVerticalScrollIndicator={false}
           data={specificElephants}
-          renderItem={renderItem}
+          renderItem={(item)=>renderItem(item,props)}
           keyExtractor={item => item.id}
         />
       </View>

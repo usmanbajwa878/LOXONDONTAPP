@@ -6,6 +6,8 @@ import HomeScreen from "./Home";
 import LoginScreen from "./Login";
 import SearchScreen from "./Search";
 import DatabaseIntro from "./DatabaseIntro";
+import PreviewElephantScreen from "./PreviewElephant/PreviewElephant";
+
 
 export default {
     SearchScreen,
@@ -15,5 +17,6 @@ export default {
     ForgetPassword,
     DashBoardScreen,
     ContactUsScreen,
-    DatabaseIntro
+    DatabaseIntro,
+    PreviewElephantScreen
 }

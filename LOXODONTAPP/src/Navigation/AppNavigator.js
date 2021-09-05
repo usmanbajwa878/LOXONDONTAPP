@@ -29,6 +29,7 @@ import {COLORS} from '../Constants/AppConstants';
 import {useDispatch, useSelector} from 'react-redux';
 import {moderateScale} from 'react-native-size-matters';
 import { actionLogout } from '../Store/Actions/Auth';
+import PreviewElephantScreen from '../Screens/PreviewElephant/PreviewElephant';
 
 const defaultNavOptions = {
   headerStyles: {
@@ -124,6 +125,14 @@ export const HomeScreenNavigator = () => {
        <HomeStackNavigator.Screen
         name="DataBaseFormScreen"
         component={DataBaseFormScreen}
+        options={{
+          headerMode: 'none',
+          headerShown: false,
+        }}
+      />
+       <HomeStackNavigator.Screen
+        name="PreviewElephant"
+        component={PreviewElephantScreen}
         options={{
           headerMode: 'none',
           headerShown: false,

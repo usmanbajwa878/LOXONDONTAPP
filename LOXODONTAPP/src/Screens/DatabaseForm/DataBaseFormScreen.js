@@ -27,7 +27,7 @@ import {actionCreateElephant} from '../../Store/Actions/Elephant';
 const DataBaseFormScreen = props => {
 
 
-    console.log("DATA BASE FORM SCREEN",props.route.params.item)
+    // console.log("DATA BASE FORM SCREEN",props.route.params.item)
 
   const [gender, setGender] = useState('');
   const [age, setAge] = useState('');
@@ -77,6 +77,7 @@ const DataBaseFormScreen = props => {
 
     return (
       <View
+      key ={itemIndex}
         style={{
           backgroundColor: backgroundColor,
           flexDirection: 'row',
@@ -221,8 +222,9 @@ const DataBaseFormScreen = props => {
             ears,
             tail,
             comments,
+            seenWith
           };
-          await dispatch(actionCreateElephant(data));
+          // await dispatch(actionCreateElephant(data));
           props.navigation.push('IdentificationScreen',{item:data});
         } catch (error) {
           Alert.alert(MESSAGES.ERROR, error.message, [{text: MESSAGES.OK}]);

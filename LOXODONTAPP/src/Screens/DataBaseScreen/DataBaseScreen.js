@@ -168,7 +168,7 @@ const DataBaseScreen = props => {
   const elephantData = useSelector(state => state.elephant.elephantList);
 
   const handleSelected = item => {
-    props.navigation.push('DataBaseFormScreen', {item: item});
+    props.navigation.push('PreviewElephant', {item: item,userInteraction:false});
   };
   const applyFiltering = (value, setValue, searchKey) => {
     const previousFilters = filters;

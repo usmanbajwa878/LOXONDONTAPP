@@ -51,7 +51,7 @@ const HomeScreen = props => {
       </View>
       <View style={styles.contentContainer}>
         <TouchableOpacity
-          onPress={() => props.navigation.push('AddElephantScreen')}
+          onPress={() => props.navigation.push('DataBaseFormScreen')}
           style={styles.addButtonContainer}>
           <Text style={styles.plusButton}>+</Text>
         </TouchableOpacity>
