@@ -109,6 +109,9 @@ const SelectedElephantScreen = props => {
   };
 
   const handleSubmit = async () => {
+    console.log("inside submit",tuskSelected)
+    if(genderSelected && ageSelected && tuskSelected && earSelected && specialFeatureSelected){
+     
     const searchData = {
       // Date: dateSelected ? selectedElephant.Date : '',
       gender: genderSelected ? selectedElephant.gender : '',
@@ -155,6 +158,9 @@ const SelectedElephantScreen = props => {
     }
 
     console.log('Search Ready Data', searchData);
+    }else{
+      Alert.alert('','Kindly Select All fields',[{text:'Okay'}])
+  }
     //find specfic
     // props.navigation.push('DataBaseAddScreen', {showPopUp: true});
     //getDesired results based on search and navigate to new screen shoing just data
@@ -185,7 +191,7 @@ const SelectedElephantScreen = props => {
             source={require('../../Assets/Images/Icons/back.png')}
           />
         </TouchableOpacity>
-        <TouchableOpacity
+        {/* <TouchableOpacity
           onPress={() => props.navigation.toggleDrawer()}
           style={{}}>
           <Image
@@ -194,7 +200,7 @@ const SelectedElephantScreen = props => {
             resizeMethod="resize"
             source={require('../../Assets/Images/Icons/sidemenu.png')}
           />
-        </TouchableOpacity>
+        </TouchableOpacity> */}
       </View>
       <View
         style={{justifyContent: 'center', marginVertical: moderateScale(20)}}>

@@ -13,7 +13,7 @@ import styles from './IdentificationScreen.styles';
 import Header from '../../Components/Header';
 import backButton from '../../Assets/Images/Icons/back.png';
 import elephantIcon from '../../Assets/Images/Icons/elephant.png';
-import outlined from '../../Assets/Images/Icons/outlined.png';
+import outlined from '../../Assets/Images/Icons/outlined.jpeg';
 import checkbox from '../../Assets/Images/Icons/checkBox.png';
 import {moderateScale} from 'react-native-size-matters';
 import {COLORS} from '../../Constants/AppConstants';
@@ -32,18 +32,18 @@ const IdentificationScreen = props => {
   const [featureValues,setFeatureValues] = useState([]);
   const [specialFeatures,setSpecialFeatures] = useState(false);
   const [selected,setSelected] = useState({
-    head1:false,
-    head2:false,
-    head3:false,
-    head4:false,
-    head5:false,
-    headT1:false,
-    headT2:false,
-    head7:false,
-    head8:false,
-    head9:false,
-    head10:false,
-    head11:false,
+    leftear1:false,
+    leftear2:false,
+    leftear3:false,
+    leftear4:false,
+    leftear5:false,
+    tuskT1:false,
+    tuskT2:false,
+    rightear7:false,
+    rightear8:false,
+    rightear9:false,
+    rightear10:false,
+    rightear11:false,
     leftFL:false,
     leftS:false,
     leftB:false,
@@ -142,7 +142,7 @@ const IdentificationScreen = props => {
   const selectedElephant = props.route.params.item
     ? props.route.params.item
     : {};
-
+console.log("selectedElephant",selectedElephant);
   return (
     <SafeAreaView style={styles.container}>
       <View
@@ -172,10 +172,10 @@ const IdentificationScreen = props => {
               }}>
               <Image
                 style={{
-                  minHeight: moderateScale(300),
-                  minWidth: '80%',
+                  height: moderateScale(300),
+                  width: moderateScale(100),
                 }}
-                source={elephantIcon}
+                source={{uri:selectedElephant.images[0]}}
               />
             </View>
             <ImageBackground
@@ -188,35 +188,35 @@ const IdentificationScreen = props => {
               <View style={{flexDirection:'row',marginHorizontal:70,justifyContent:'space-between'}}>
                 <TouchableOpacity
                   style={{
-                    backgroundColor: selected.head11 ? 'green' : 'transparent',
+                    backgroundColor: selected.rightear11 ? 'green' : 'transparent',
                     height: moderateScale(15),
                     marginTop: moderateScale(20),
                     width: moderateScale(15),
                     borderWidth:1,
-                    borderColor:selected.head11 ? 'green' : 'transparent',
+                    borderColor:selected.rightear11 ? 'green' : 'transparent',
                     borderRadius:10,
                     marginLeft:40
                   }}
                   onPress={() => {
-                    setSelected({head11:true})
-                    handlePopup('head-11');
+                    setSelected({rightear11:true})
+                    handlePopup('rightear-11');
 
                   }}
                 />
                 <TouchableOpacity
                     style={{
-                      backgroundColor: selected.head1 ? 'green' : 'transparent',
+                      backgroundColor: selected.leftear1 ? 'green' : 'transparent',
                       height: moderateScale(15),
                       marginTop: moderateScale(20),
                       width: moderateScale(15),
                       borderWidth:1,
-                      borderColor:selected.head1 ? 'green' : 'transparent',
+                      borderColor:selected.leftear1 ? 'green' : 'transparent',
                       borderRadius:10,
                       marginRight:40
                     }}
                     onPress={() => {
-                      setSelected({head1:true})
-                      handlePopup('head-1');
+                      setSelected({leftear1:true})
+                      handlePopup('leftear-1');
   
                     }}
                 />
@@ -225,36 +225,36 @@ const IdentificationScreen = props => {
               <View style={{flexDirection:'row',marginHorizontal:70,justifyContent:'space-between'}}>
                 <TouchableOpacity
                   style={{
-                    backgroundColor: selected.head10 ? 'green' : 'transparent',
+                    backgroundColor: selected.rightear10 ? 'green' : 'transparent',
                     height: moderateScale(15),
                     marginTop: moderateScale(5),
                     width: moderateScale(15),
                     borderWidth:1,
-                    borderColor:selected.head10 ? 'green' : 'transparent',
+                    borderColor:selected.rightear10 ? 'green' : 'transparent',
                     borderRadius:10,
                     marginLeft:30
                   }}
                   onPress={() => {
-                    setSelected({head10:true})
-                    handlePopup('head-10');
+                    setSelected({rightear10:true})
+                    handlePopup('rightear-10');
 
                   }}
                   // onPress={() => alert('pressed head left')}
                 />
                 <TouchableOpacity
                   style={{
-                    backgroundColor: selected.head2 ? 'green' : 'transparent',
+                    backgroundColor: selected.leftear2 ? 'green' : 'transparent',
                     height: moderateScale(15),
                     marginTop: moderateScale(5),
                     width: moderateScale(15),
                     borderWidth:1,
-                    borderColor:selected.head2 ? 'green' : 'transparent',
+                    borderColor:selected.leftear2 ? 'green' : 'transparent',
                     borderRadius:10,
                     marginRight:20
                   }}
                   onPress={() => {
-                    setSelected({head2:true})
-                    handlePopup('head-2');
+                    setSelected({leftear2:true})
+                    handlePopup('leftear-2');
 
                   }}
                   // onPress={() => alert('pressed head 2nd part')}
@@ -264,36 +264,36 @@ const IdentificationScreen = props => {
               <View style={{flexDirection:'row',marginHorizontal:70,justifyContent:'space-between'}}>
                 <TouchableOpacity
                   style={{
-                    backgroundColor: selected.head9 ? 'green' : 'transparent',
+                    backgroundColor: selected.rightear9 ? 'green' : 'transparent',
                     height: moderateScale(15),
                     marginTop: moderateScale(5),
                     width: moderateScale(15),
                     borderWidth:1,
-                    borderColor:selected.head9 ? 'green' : 'transparent',
+                    borderColor:selected.rightear9 ? 'green' : 'transparent',
                     borderRadius:10,
                     marginLeft:20
                   }}
                   onPress={() => {
-                    setSelected({head9:true})
-                    handlePopup('head-9');
+                    setSelected({rightear9:true})
+                    handlePopup('rightear-9');
 
                   }}
                   // onPress={() => alert('pressed head left')}
                 />
                 <TouchableOpacity
                   style={{
-                    backgroundColor: selected.head3 ? 'green' : 'transparent',
+                    backgroundColor: selected.leftear3 ? 'green' : 'transparent',
                     height: moderateScale(15),
                     marginTop: moderateScale(10),
                     width: moderateScale(15),
                     borderWidth:1,
-                    borderColor:selected.head3 ? 'green' : 'transparent',
+                    borderColor:selected.leftear3 ? 'green' : 'transparent',
                     borderRadius:10,
                     marginRight:25
                   }}
                   onPress={() => {
-                    setSelected({head3:true})
-                    handlePopup('head-3');
+                    setSelected({leftear3:true})
+                    handlePopup('leftear-3');
 
                   }}
                   // onPress={() => alert('pressed head 2nd part')}
@@ -309,36 +309,36 @@ const IdentificationScreen = props => {
               <View style={{flexDirection:'row',marginHorizontal:70,justifyContent:'space-between'}}>
                 <TouchableOpacity
                   style={{
-                    backgroundColor: selected.head8 ? 'green' : 'transparent',
+                    backgroundColor: selected.rightear8 ? 'green' : 'transparent',
                     height: moderateScale(15),
                     marginTop: moderateScale(5),
                     width: moderateScale(15),
                     borderWidth:1,
-                    borderColor:selected.head8 ? 'green' : 'transparent',
+                    borderColor:selected.rightear8 ? 'green' : 'transparent',
                     borderRadius:10,
                     marginLeft:35
                   }}
                   onPress={() => {
-                    setSelected({head8:true})
-                    handlePopup('head-8');
+                    setSelected({rightear8:true})
+                    handlePopup('rightear-8');
 
                   }}
                   // onPress={() => alert('pressed head left')}
                 />
                 <TouchableOpacity
                   style={{
-                    backgroundColor: selected.head4 ? 'green' : 'transparent',
+                    backgroundColor: selected.leftear4 ? 'green' : 'transparent',
                     height: moderateScale(15),
                     marginTop: moderateScale(5),
                     width: moderateScale(15),
                     borderWidth:1,
-                    borderColor:selected.head4 ? 'green' : 'transparent',
+                    borderColor:selected.leftear4 ? 'green' : 'transparent',
                     borderRadius:10,
                     marginRight:45
                   }}
                   onPress={() => {
-                    setSelected({head4:true})
-                    handlePopup('head-4');
+                    setSelected({leftear4:true})
+                    handlePopup('leftear-4');
 
                   }}
                   // onPress={() => alert('pressed head 2nd part')}
@@ -381,36 +381,36 @@ const IdentificationScreen = props => {
               <View style={{flexDirection:'row',marginHorizontal:130,justifyContent:'space-between'}}>
                 <TouchableOpacity
                   style={{
-                    backgroundColor: selected.head7 ? 'green' : 'transparent',
+                    backgroundColor: selected.rightear7 ? 'green' : 'transparent',
                     height: moderateScale(15),
                     marginTop: moderateScale(-7),
                     width: moderateScale(15),
                     borderWidth:1,
-                    borderColor:selected.head7 ? 'green' : 'transparent',
+                    borderColor:selected.rightear7 ? 'green' : 'transparent',
                     borderRadius:10,
                     marginLeft:-10
                   }}
                   onPress={() => {
-                    setSelected({head7:true})
-                    handlePopup('head-7');
+                    setSelected({rightear7:true})
+                    handlePopup('rightear-7');
 
                   }}
                   // onPress={() => alert('pressed head left')}
                 />
                 <TouchableOpacity
                   style={{
-                    backgroundColor: selected.head5 ? 'green' : 'transparent',
+                    backgroundColor: selected.leftear5 ? 'green' : 'transparent',
                     height: moderateScale(15),
                     marginTop: moderateScale(-5),
                     width: moderateScale(15),
                     borderWidth:1,
-                    borderColor:selected.head5 ? 'green' : 'transparent',
+                    borderColor:selected.leftear5 ? 'green' : 'transparent',
                     borderRadius:10,
                     marginRight:2
                   }}
                   onPress={() => {
-                    setSelected({head5:true})
-                    handlePopup('head-5');
+                    setSelected({leftear5:true})
+                    handlePopup('leftear-5');
 
                   }}
                   // onPress={() => alert('pressed head 2nd part')}
@@ -422,37 +422,37 @@ const IdentificationScreen = props => {
               <View style={{flexDirection:'row',marginHorizontal:130,justifyContent:'space-between'}}>
                 <TouchableOpacity
                   style={{
-                    backgroundColor: selected.headT1 ? 'green' : 'transparent',
+                    backgroundColor: selected.tuskT1 ? 'green' : 'transparent',
                     height: moderateScale(15),
                     marginTop: moderateScale(-15),
                     width: moderateScale(15),
                     borderWidth:1,
-                    borderColor:selected.headT1 ? 'green' : 'transparent',
+                    borderColor:selected.tuskT1 ? 'green' : 'transparent',
                     borderRadius:10,
                     marginLeft:35
                   }}
                   onPress={() => {
-                    setSelected({headT1:true})
-                    handlePopup('head-T1');
+                    setSelected({tuskT1:true})
+                    handlePopup('tusk-T1');
 
                   }}
                   // onPress={() => alert('pressed head left')}
                 />
                 <TouchableOpacity
                   style={{
-                    backgroundColor: selected.headT2 ? 'green' : 'transparent',
+                    backgroundColor: selected.tuskT2 ? 'green' : 'transparent',
                     height: moderateScale(15),
                     marginTop: moderateScale(10),
                     width: moderateScale(15),
                     borderWidth:1,
-                    borderColor:selected.headT2 ? 'green' : 'transparent',
+                    borderColor:selected.tuskT2 ? 'green' : 'transparent',
                     borderRadius:10,
                     marginLeft:-50,
                     marginRight:45
                   }}
                   onPress={() => {
-                    setSelected({headT2:true})
-                    handlePopup('head-T2');
+                    setSelected({tuskT2:true})
+                    handlePopup('tusk-T2');
 
                   }}
                   // onPress={() => alert('pressed head 2nd part')}

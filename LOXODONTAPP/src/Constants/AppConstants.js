@@ -77,7 +77,8 @@ export const ERROR_CODES = {
 
 }
 
-export const BASE_URL = 'http://45.9.191.199:3000'
+ export const BASE_URL = 'http://45.9.191.199:3000'
+
 
 
 export const ROUTES = {

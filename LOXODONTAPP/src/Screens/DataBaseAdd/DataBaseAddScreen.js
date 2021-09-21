@@ -8,6 +8,8 @@ import {
   ScrollView,
   TextInput,
   FlatList,
+  Alert,
+  ImageBackground,
 } from 'react-native';
 import styles from './DataBaseAddScreen.styles';
 import Header from '../../Components/Header';
@@ -45,12 +47,35 @@ const listData = [
     Comment: 'Seen with Herd C',
   },
 ];
+const showAddDatatoSelectedPopup = (item, props) => {
+  return Alert.alert(
+    '',
+    `Are You sure You would like to add data to ${item.name} ?`,
+    [
+      {text: 'Cancel'},
+      {
+        text: 'Submit',
+        onPress: () =>
+          props.navigation.push('AddElephantScreen', {
+            item: JSON.stringify(item),
+            editable:true,
+            userInteraction: true,
+          }),
+      },
+    ],
+  );
+};
 
-const renderItem = ({item},props) => {
-  console.log('item', item);
+
+const renderItem = ({item}, props,handleShowTick) => {
+  console.log("item",item);
   return (
     <TouchableOpacity
-    onPress={()=>props.navigation.push('PreviewElephant',{item:item,userInteraction:true})}
+      onPress={() =>{
+        handleShowTick(item)
+        showAddDatatoSelectedPopup(item,props)
+  
+      }}
       style={{
         flexDirection: 'row',
         maxHeight: moderateScale(220),
@@ -58,25 +83,62 @@ const renderItem = ({item},props) => {
         justifyContent: 'space-between',
       }}>
       <View style={styles.itemImageContainer}>
-        {item.images && item.images.length > 0 ? (
+        {item.images && item.images.length > 0  && item.showTick === false ?  (
           <Image
             resizeMethod="resize"
             resizeMode="cover"
             style={{
-              maxWidth: moderateScale(100),
-              maxHeight: moderateScale(320),
-              minHeight: moderateScale(220),
+              width:100,
+              height:220
+              // maxWidth: moderateScale(100),
+              // maxHeight: moderateScale(320),
+              // minHeight: moderateScale(220),
             }}
             source={{uri: item.images[0]}}
           />
-        ) : (
+        )
+      
+        :
+        item.images && item.images.length > 0 &&  item.showTick === true ? (
+          <ImageBackground 
+         resizeMethod="resize"
+         resizeMode="cover"
+          style={{
+            width:100,
+            height:220,
+            justifyContent:'center'
+            // maxWidth: moderateScale(100),
+            // maxHeight: moderateScale(320),
+            // minHeight: moderateScale(220),
+          }}
+          source={{uri: item.images[0]}}
+          >
           <Image
             resizeMethod="resize"
-            resizeMode="cover"
+            resizeMode="contain"
             style={{
-              maxWidth: moderateScale(100),
-              maxHeight: moderateScale(320),
-              minHeight: moderateScale(220),
+              width:100,
+              height:50,
+              backgroundColor:'transparent'
+              // maxWidth: moderateScale(100),
+              // maxHeight: moderateScale(320),
+              // minHeight: moderateScale(220),
+            }}
+            source={require('../../Assets/Images/Icons/trueCheck.png')}
+          />
+          </ImageBackground>
+        )
+        :
+        (
+          <Image
+            resizeMethod="resize"
+            resizeMode="contain"
+            style={{
+              width:100,
+              height:220,
+              // maxWidth: moderateScale(100),
+              // maxHeight: moderateScale(320),
+              // minHeight: moderateScale(220),
             }}
             source={elephantIcon}
           />
@@ -129,46 +191,80 @@ const DataBaseAddScreen = props => {
   console.log('DataBase props', props);
 
   const [showPopUp, setShowPop] = useState(false);
+  const [showAddButton, setShowAddButton] = useState(false);
   const [showAddElephant, setShowAddElephant] = useState(false);
   const [elephantName, setElephantName] = useState('');
+  const [showTick,setShowTick] = useState(false);
+  const [elephantData,setElephantData] = useState([]);
   const dispatch = useDispatch();
   const netInfo = useNetInfo();
   const specificElephants = useSelector(
     state => state.elephant.specificElephants,
   );
-  const USER_ID =useSelector(state => state.auth.user.userId)
-
+ 
+ 
+  const USER_ID = useSelector(state => state.auth.user.userId);
+  const user = useSelector(state => state.auth.user);
   const selectedElephant = props.route.params?.selectedElephant
     ? props.route.params?.selectedElephant
     : {};
   console.log('PROPS DATABSE ADD SCREEN', props);
   console.log('SPECIFIC ', specificElephants);
+  console.log("elepahntData",elephantData)
+const modifyData = ()=>{
+  specificElephants?.map((item)=>item.showTick = false);
+  setElephantData(specificElephants);
+}
 
   useEffect(() => {
-   const popUptimer = setTimeout(()=>{
-      if (specificElephants &&  specificElephants.length === 0) {
-        setShowPop(true);
+  modifyData();
+    const popUptimer = setTimeout(() => {
+      if (specificElephants && specificElephants.length === 0) {
+        setShowAddButton(true);
       }
-    },3000);
-    return ()=>clearTimeout(popUptimer);
-    
+    }, 500);
+    return () => clearTimeout(popUptimer);
   }, [props]);
-  
-  const handleAddElephant = async() => {
+
+
+  const handleAddElephant = async () => {
+    const addedBy = {
+      name: user[0].name,
+      date: new Date(),
+      userId: user[0].userId,
+    };
     selectedElephant.name = elephantName;
-    selectedElephant.userId = USER_ID
+    selectedElephant.userId = USER_ID;
+    selectedElephant.addedBy = addedBy;
+
+    console.log('INSIDE DATABASE ADD ELEPHANT', selectedElephant);
     try {
       if (netInfo.isConnected) {
-       await  dispatch(actionCreateElephant(selectedElephant));
-           setShowPop(false);
-         setShowAddElephant(false);
-         props.navigation.push('SuccessScreen')
+        await dispatch(actionCreateElephant(selectedElephant));
+        setShowPop(false);
+        setShowAddElephant(false);
+        props.navigation.push('SuccessScreen');
       }
     } catch (error) {
       console.log('error', error);
     }
- 
   };
+  const handleShowTick = async(item)=>{
+    const data =await JSON.parse(JSON.stringify(elephantData));
+    const index =   data.findIndex(elephantitem=>elephantitem._id === item._id);
+    console.log("INDEX",index);
+    data.map((elItem)=>{
+      if(elItem._id===item._id){
+        elItem.showTick = !item.showTick
+      }else {
+        elItem.showTick = false
+      }
+      return elItem;
+    })
+    setElephantData(data);
+    setElephantData(data);
+    console.log("el",data)
+  }
 
   return (
     <SafeAreaView style={styles.container}>
@@ -199,7 +295,7 @@ const DataBaseAddScreen = props => {
             Results
           </Text>
         </View>
-        <TouchableOpacity
+        {/* <TouchableOpacity
           onPress={() => props.navigation.toggleDrawer()}
           style={{}}>
           <Image
@@ -208,7 +304,7 @@ const DataBaseAddScreen = props => {
             resizeMethod="resize"
             source={require('../../Assets/Images/Icons/sidemenu.png')}
           />
-        </TouchableOpacity>
+        </TouchableOpacity> */}
       </View>
       {/* <TouchableOpacity
         onPress={() => props.navigation.push('AddElephantScreen')}
@@ -236,16 +332,58 @@ const DataBaseAddScreen = props => {
           </Text>
         </View>
       </TouchableOpacity> */}
-      <Text
+      <View
         style={{
-          marginHorizontal: moderateScale(20),
-          marginVertical: moderateScale(10),
-        }}>{`Results (${specificElephants.length})`}</Text>
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+          alignItems:'center',
+          width: '100%',
+        }}>
+        <View>
+          <Text
+            style={{
+              marginHorizontal: moderateScale(20),
+              marginVertical: moderateScale(10),
+              fontSize:18
+            }}>
+            {`Results (${specificElephants.length})`}
+          </Text>
+        </View>
+        <TouchableOpacity
+          onPress={() => setShowPop(true)}
+          // onPress={() => props.navigation.push('AddElephantScreen')}
+          style={styles.addButtonContainer}>
+          <View
+            style={{
+              backgroundColor: COLORS.GREEN,
+              height: moderateScale(40),
+              width: moderateScale(40),
+              justifyContent: 'center',
+              alignItems: 'center',
+              borderWidth: 1,
+              borderRadius: moderateScale(5),
+              borderColor: COLORS.GREEN,
+              marginHorizontal: moderateScale(10),
+              marginVertical: moderateScale(20),
+            }}>
+            <Text
+              style={{
+                fontSize: moderateScale(30),
+                fontWeight: '700',
+                color: COLORS.WHITE,
+              }}>
+              +
+            </Text>
+          </View>
+        </TouchableOpacity>
+      </View>
+
       <View style={{flex: 1, marginHorizontal: moderateScale(20)}}>
         <FlatList
+        extraData={elephantData}
           showsVerticalScrollIndicator={false}
-          data={specificElephants}
-          renderItem={(item)=>renderItem(item,props)}
+          data={elephantData}
+          renderItem={item => renderItem(item, props,handleShowTick)}
           keyExtractor={item => item.id}
         />
       </View>

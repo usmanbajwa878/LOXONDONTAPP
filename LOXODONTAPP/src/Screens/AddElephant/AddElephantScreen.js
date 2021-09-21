@@ -19,26 +19,31 @@ import {BASE_URL, COLORS, MESSAGES} from '../../Constants/AppConstants';
 import {IdentificationOptions} from '../../Data/OptionList';
 import * as ImagePicker from 'react-native-image-picker';
 import {createFileUploadNetworkRequest} from '../../Services/Network/createAction';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {useNetInfo} from '@react-native-community/netinfo';
 import ModalView from '../../Components/ModalView';
 import {actionCreateElephant} from '../../Store/Actions/Elephant';
 
 const AddElephantScreen = props => {
-  const [gender, setGender] = useState('');
-  const [age, setAge] = useState('');
-  const [tusks, setTusks] = useState('');
-  const [name, setName] = useState('');
-  const [ears, setEars] = useState('');
-  const [tail, setTail] = useState('');
-  const [comments, setComments] = useState('');
+  console.log('PROPS Add Elephant',JSON.parse(props.route?.params.item));
+const elephantData = JSON.parse(props.route?.params.item);
+const isEditable = props.route?.params?.editable ? props.route?.params?.editable  : false;
+  const user =useSelector(state=>state.auth.user)
+  const [gender, setGender] = useState(elephantData?.gender);
+  const [age, setAge] = useState(elephantData?.age);
+  const [tusks, setTusks] = useState(elephantData?.tusks);
+  const [name, setName] = useState(elephantData?.name);
+  const [ears, setEars] = useState(elephantData?.ears);
+  const [tail, setTail] = useState(elephantData?.tail);
+  const [comments, setComments] = useState(elephantData?.comments);
   const [loading, setLoading] = useState(false);
-  const [imageArray, setImageArray] = useState([]);
+  const [imageArray, setImageArray] = useState(elephantData?.images);
   const [identificationList, setIdentificationList] = useState(
     IdentificationOptions,
   );
   const dispatch = useDispatch();
   const netInfo = useNetInfo();
+  
 
   useEffect(() => {}, [dispatch]);
 
@@ -203,6 +208,7 @@ const AddElephantScreen = props => {
         setLoading(true);
         try {
         const pushedImages = await fileUploadRequest();
+        user['date'] = new Date();
         
           const data = {
             images: pushedImages,
@@ -213,7 +219,9 @@ const AddElephantScreen = props => {
             ears,
             tail,
             comments,
+            addedBy:user
           };
+          console.log("INSIDE ADD ELEPHANT ",data)
           await dispatch(actionCreateElephant(data));
           props.navigation.push('SuccessScreen');
         } catch (error) {
@@ -247,7 +255,7 @@ const AddElephantScreen = props => {
             source={require('../../Assets/Images/Icons/back.png')}
           />
         </TouchableOpacity>
-        <TouchableOpacity
+        {/* <TouchableOpacity
           onPress={() => props.navigation.toggleDrawer()}
           style={{}}>
           <Image
@@ -256,7 +264,7 @@ const AddElephantScreen = props => {
             resizeMethod="resize"
             source={require('../../Assets/Images/Icons/sidemenu.png')}
           />
-        </TouchableOpacity>
+        </TouchableOpacity> */}
       </View>
       <View
         style={{justifyContent: 'center', marginVertical: moderateScale(20)}}>
@@ -277,11 +285,11 @@ const AddElephantScreen = props => {
           marginHorizontal: moderateScale(10),
           justifyContent: 'center',
         }}>
-        <TouchableOpacity onPress={selectPhoto} style={styles.imageContainer}>
+      {isEditable &&  <TouchableOpacity onPress={selectPhoto} style={styles.imageContainer}>
           {imageArray.length > 3 ? (
             <Image
               style={{height: moderateScale(70), width: moderateScale(70)}}
-              source={{uri: imageArray[1].uri}}
+              source={{uri: imageArray[1]}}
             />
           ) : (
             <Image
@@ -291,12 +299,12 @@ const AddElephantScreen = props => {
               source={cameraIcon}
             />
           )}
-        </TouchableOpacity>
+        </TouchableOpacity>}
         <View style={styles.imageDottedContainer}>
           {imageArray.length > 0 && (
             <Image
               style={{height: moderateScale(70), width: moderateScale(70)}}
-              source={{uri: imageArray[0].uri}}
+              source={{uri: imageArray[0]}}
             />
           )}
         </View>
@@ -304,7 +312,7 @@ const AddElephantScreen = props => {
           {imageArray.length > 1 && (
             <Image
               style={{height: moderateScale(70), width: moderateScale(70)}}
-              source={{uri: imageArray[1].uri}}
+              source={{uri: imageArray[1]}}
             />
           )}
         </View>
@@ -312,7 +320,7 @@ const AddElephantScreen = props => {
           {imageArray.length > 2 && (
             <Image
               style={{height: moderateScale(70), width: moderateScale(70)}}
-              source={{uri: imageArray[2].uri}}
+              source={{uri: imageArray[2]}}
             />
           )}
         </View>
@@ -333,6 +341,7 @@ const AddElephantScreen = props => {
             </View>
             <View style={styles.inputContainer}>
               <TextInput
+                editable={isEditable}
                 value={name}
                 onChangeText={text => setName(text)}
                 placeholder="eg.Elephant"
@@ -350,6 +359,7 @@ const AddElephantScreen = props => {
             </View>
             <View style={styles.inputContainer}>
               <TextInput
+                editable={isEditable}
                 value={age}
                 onChangeText={text => setAge(text)}
                 placeholder="eg.Bull"
@@ -367,6 +377,7 @@ const AddElephantScreen = props => {
             </View>
             <View style={styles.inputContainer}>
               <TextInput
+                editable={isEditable}
                 value={gender}
                 onChangeText={text => setGender(text)}
                 placeholder="eg.Bull"
@@ -384,6 +395,7 @@ const AddElephantScreen = props => {
             </View>
             <View style={styles.inputContainer}>
               <TextInput
+                editable={isEditable}
                 value={tusks}
                 onChangeText={text => setTusks(text)}
                 placeholder="eg.L only"
@@ -401,6 +413,7 @@ const AddElephantScreen = props => {
             </View>
             <View style={styles.inputContainer}>
               <TextInput
+                editable={isEditable}
                 value={ears}
                 onChangeText={text => setEars(text)}
                 placeholder="eg.Tears in 9"
@@ -418,6 +431,7 @@ const AddElephantScreen = props => {
             </View>
             <View style={styles.inputContainer}>
               <TextInput
+                editable={isEditable}
                 value={tail}
                 onChangeText={text => setTail(text)}
                 placeholder="eg.No Hair "
@@ -435,6 +449,7 @@ const AddElephantScreen = props => {
             </View>
             <View style={styles.inputContainer}>
               <TextInput
+                editable={isEditable}
                 value={comments}
                 onChangeText={text => setComments(text)}
                 placeholder="Comment"
@@ -446,7 +461,7 @@ const AddElephantScreen = props => {
 
           {/* {identificationList.map((item, index) => renderOption(item, index))} */}
         </View>
-        <TouchableOpacity
+    {isEditable &&    <TouchableOpacity
           onPress={() => handleSubmit()}
           style={{
             backgroundColor: COLORS.GREEN,
@@ -462,7 +477,7 @@ const AddElephantScreen = props => {
             marginVertical: moderateScale(20),
           }}>
           <Text style={{color: COLORS.WHITE}}>SUBMIT</Text>
-        </TouchableOpacity>
+        </TouchableOpacity>}
       </ScrollView>
       {loading && (
         <ModalView isVisible={loading}>

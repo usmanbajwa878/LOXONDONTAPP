@@ -8,7 +8,7 @@ const SuccessScreen = props => {
   console.log('props', props);
   return (
     <SafeAreaView style={styles.container}>
-      <View onPress={() => props.navigation.toggleDrawer()} style={{}}>
+      <View  style={{}}>
         <Image
           style={{width: moderateScale(100), height: moderateScale(100)}}
           resizeMode="contain"

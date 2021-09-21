@@ -16,6 +16,9 @@ import elephantIcon from '../../Assets/Images/Icons/elephant.png';
 import {moderateScale} from 'react-native-size-matters';
 import {COLORS} from '../../Constants/AppConstants';
 import {useSelector, useDispatch} from 'react-redux';
+import {useNetInfo} from '@react-native-community/netinfo';
+import { actionGetAllElephants } from '../../Store/Actions/Elephant.js';
+
 import {
   GenderOptions,
   AgeOptions,
@@ -50,6 +53,7 @@ const listData = [
 ];
 
 const renderItem = ({item}, handleSelected) => {
+  
   return (
     <TouchableOpacity
       onPress={() => handleSelected(item)}
@@ -66,9 +70,12 @@ const renderItem = ({item}, handleSelected) => {
               resizeMethod="resize"
               resizeMode="cover"
               style={{
-                maxWidth: moderateScale(100),
-                maxHeight: moderateScale(320),
-                minHeight: moderateScale(220),
+                width:100,
+                height:200
+                // maxWidth: moderateScale(100),
+                // maxHeight: moderateScale(320),
+                // minHeight: moderateScale(220),
+               
               }}
               source={{uri: item.images[0]}}
             />
@@ -79,9 +86,11 @@ const renderItem = ({item}, handleSelected) => {
               resizeMethod="resize"
               resizeMode="cover"
               style={{
-                maxWidth: moderateScale(100),
-                maxHeight: moderateScale(320),
-                minHeight: moderateScale(220),
+                width:100,
+                height:220,
+                // maxWidth: moderateScale(100),
+                // maxHeight: moderateScale(320),
+                // minHeight: moderateScale(220),
               }}
               source={elephantIcon}
             />
@@ -148,7 +157,7 @@ const renderItem = ({item}, handleSelected) => {
 
 const DataBaseScreen = props => {
   console.log('props', props);
-
+  const NetInfo = useNetInfo();
   const [elephantList, setElephantList] = useState([]);
   const [age, setAge] = useState('Select Age');
   const [ears, setEars] = useState('Select Ears');
@@ -158,36 +167,56 @@ const DataBaseScreen = props => {
   const [reserveArea, setReserveArea] = useState('');
   const [filters, setFilters] = useState({});
 
-  useEffect(() => {
-    if (elephantData && elephantList.length === 0) {
-      console.log('CALLED', elephantData);
-      setElephantList(elephantData);
+
+  const getElephantData = async () => {
+    try {
+      if(NetInfo.isConnected){
+        await dispatch(actionGetAllElephants());
+      }
+    } catch (error) {
+      console.log("error",error)
     }
-  }, []);
+  };
+
+
+
+  // useEffect(() => {
+  //   if (elephantData && elephantList.length === 0) {
+  //     console.log('CALLED', elephantData);
+  //     setElephantList(elephantData);
+  //   }
+  // }, []);
   const dispatch = useDispatch();
   const elephantData = useSelector(state => state.elephant.elephantList);
 
+  useEffect(()=>{
+    getElephantData().then(()=>{
+      setElephantList(elephantData);
+    })
+  },[dispatch]);
+  
   const handleSelected = item => {
     props.navigation.push('PreviewElephant', {item: item,userInteraction:false});
   };
   const applyFiltering = (value, setValue, searchKey) => {
-    const previousFilters = filters;
+    let previousFilters = {};
     console.log('value', value, searchKey);
     if (value === 'initialValue') {
       setValue(value);
       setElephantList(elephantData);
       return;
     } else {
-      previousFilters.searchKey = value;
+       previousFilters[searchKey] = value;
       const filtererdData = elephantData.filter(item => {
         // const values= {gender:'male',age:'old',tail:'tail',name:'elephant78'}
         for (let key in previousFilters) {
-          if (item[key] === undefined || item[key] != previousFilters[key])
-            return false;
+          if (item[key] === undefined || item[key] === previousFilters[key]);
+       
+            return true;
         }
-        return true;
+        return false;
       });
-      console.log('eple', filtererdData);
+      console.log('filteredData', filtererdData);
       setElephantList(filtererdData);
       setValue(value);
     }
@@ -211,18 +240,19 @@ const DataBaseScreen = props => {
             source={require('../../Assets/Images/Icons/back.png')}
           />
         </TouchableOpacity>
-        <View style={{justifyContent: 'center'}}>
+        <View style={{justifyContent: 'center',width:'80%'}}>
           <Text
             style={{
               fontSize: moderateScale(18),
-              alignSelf: 'center',
+              alignSelf:'center',
               fontWeight: '600',
               color: COLORS.GREEN,
+              marginLeft:-80
             }}>
             DataBase
           </Text>
         </View>
-        <TouchableOpacity
+        {/* <TouchableOpacity
           onPress={() => props.navigation.toggleDrawer()}
           style={{}}>
           <Image
@@ -231,9 +261,9 @@ const DataBaseScreen = props => {
             resizeMethod="resize"
             source={require('../../Assets/Images/Icons/sidemenu.png')}
           />
-        </TouchableOpacity>
+        </TouchableOpacity> */}
       </View>
-
+    <ScrollView>
       <View style={styles.pickerContainers}>
         <View style={styles.pickerView}>
           <TextInput
@@ -343,6 +373,7 @@ const DataBaseScreen = props => {
           keyExtractor={item => item.id}
         />
       </View>
+      </ScrollView>
     </SafeAreaView>
   );
 };

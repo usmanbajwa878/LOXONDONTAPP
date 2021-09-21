@@ -39,6 +39,8 @@ const DataBaseFormScreen = props => {
   const [seenWith,setSeenWith] = useState('');
   const [loading, setLoading] = useState(false);
   const [imageArray, setImageArray] = useState([]);
+  const [isUploaded,setIsUploaded] = useState(false);
+
   const [identificationList, setIdentificationList] = useState(
     IdentificationOptions,
   );
@@ -46,6 +48,19 @@ const DataBaseFormScreen = props => {
   const netInfo = useNetInfo();
 
   useEffect(() => {}, [dispatch]);
+  useEffect(()=>{
+    ()=>{
+      IdentificationOptions.map((item,index)=>{
+        
+        IdentificationOptions[index].options.map(
+          optionChange => (optionChange.selected = false),
+        );
+      });
+      console.log("REset array",IdentificationOptions);
+      
+      setIdentificationList(IdentificationOptions)
+    }
+  })
 
   //previous form
   const renderOption = (item, itemIndex) => {
@@ -185,6 +200,7 @@ const DataBaseFormScreen = props => {
   };
   const fileUploadRequest = async () => {
     let pushedImages = [];
+    setIs
     imageArray.map(item => {
       createFileUploadNetworkRequest('POST', 'fileUpload', item).then(
         response => {
@@ -257,7 +273,7 @@ const DataBaseFormScreen = props => {
             source={require('../../Assets/Images/Icons/back.png')}
           />
         </TouchableOpacity>
-        <TouchableOpacity
+        {/* <TouchableOpacity
           onPress={() => props.navigation.toggleDrawer()}
           style={{}}>
           <Image
@@ -266,7 +282,7 @@ const DataBaseFormScreen = props => {
             resizeMethod="resize"
             source={require('../../Assets/Images/Icons/sidemenu.png')}
           />
-        </TouchableOpacity>
+        </TouchableOpacity> */}
       </View>
       <View
         style={{justifyContent: 'center', marginVertical: moderateScale(20)}}>

@@ -21,20 +21,20 @@ import * as ImagePicker from 'react-native-image-picker';
 import {IdentificationFormList} from '../../Data/IdentificationFormList';
 import ModalView from '../../Components/ModalView';
 import {useSelector, useDispatch} from 'react-redux';
-import {actionFindSpecificElephant} from '../../Store/Actions/Elephant';
+import {
+  actionCreateElephant,
+  actionFindSpecificElephant,
+} from '../../Store/Actions/Elephant';
 import {useNetInfo} from '@react-native-community/netinfo';
 
-
 const PreviewElephantScreen = props => {
-
   console.log('Preview Elephant props', props.route.params);
   const [formList, setFormList] = useState(IdentificationFormList);
   const [imageArray, setImageArray] = useState([]);
-  const [showPopUp,setShowPop] = useState(false);
-  
-  const user = useSelector(state => state.auth.user);
+  const [showPopUp, setShowPop] = useState(false);
+  const [showAlert, setShowAlert] = useState(false);
 
- 
+  const user = useSelector(state => state.auth.user);
 
   const selectedElephant = props.route.params?.item;
   const userInteraction = props.route.params?.userInteraction;
@@ -65,6 +65,26 @@ const PreviewElephantScreen = props => {
     });
   };
 
+  const handleAddElephant = async () => {
+    selectedElephant.userId = user._id;
+    const addObject = {...user,date:new Date()}
+    selectedElephant.addedBy = [
+      ...selectedElephant?.addedBy,addObject,
+    ];
+ 
+    console.log("INSIDE PEVIEW ELEPHANT ADD",user)
+    try {
+      if (netInfo.isConnected) {
+        await dispatch(actionCreateElephant(selectedElephant));
+        //    setShowPop(false);
+        //  setShowAddElephant(false);
+        props.navigation.push('SuccessScreen');
+      }
+    } catch (error) {
+      console.log('error', error);
+    }
+  };
+
   const handleSubmit = async () => {
     const searchData = {
       // Date: dateSelected ? selectedElephant.Date : '',
@@ -76,21 +96,20 @@ const PreviewElephantScreen = props => {
       specialFeatures: specialFeatureSelected
         ? selectedElephant.specialFeatures
         : '',
-      comment:specialFeatureSelected
-      ? selectedElephant.comments
-      : '',
-      seenWith:specialFeatureSelected
-      ? selectedElephant.seenWith
-      : '',
-    
+      comment: specialFeatureSelected ? selectedElephant.comments : '',
+      seenWith: specialFeatureSelected ? selectedElephant.seenWith : '',
     };
-  
-      for (var propName in searchData) {
-        if (searchData[propName] === null || searchData[propName] === undefined || searchData[propName] === '') {
-          delete searchData[propName];
-        }
+
+    for (var propName in searchData) {
+      if (
+        searchData[propName] === null ||
+        searchData[propName] === undefined ||
+        searchData[propName] === ''
+      ) {
+        delete searchData[propName];
       }
-    
+    }
+
     try {
       if (netInfo.isConnected) {
         await dispatch(actionFindSpecificElephant(searchData));
@@ -105,7 +124,7 @@ const PreviewElephantScreen = props => {
         ]);
       }
     } catch (error) {
-      console.log("error",error)
+      console.log('error', error);
       Alert.alert(MESSAGES.ERROR, error.message, [{text: MESSAGES.OK}]);
     }
 
@@ -120,16 +139,26 @@ const PreviewElephantScreen = props => {
     formList[index].selected = !item.selected;
     setFormList([...formList]);
   };
-  const handleAdd = ()=>{
-        console.log("user",user[0].userId);
-        if(selectedElephant.userId === user[0].userId){
-            //have access
-            setShowPop(true)
-        }else {
-            setShowPop(false)
-            //you can view only
-        }
-  }
+
+  const handleEditElephant = () => {
+    console.log('INSIDE EDIT ELEPHANT');
+    setShowPop(false);
+    console.log('HELLO');
+    props.navigation.push('AddElephantScreen', {
+      item: JSON.stringify(selectedElephant),
+    });
+  };
+  const handleAdd = () => {
+    console.log('user', user[0].userId);
+    if (selectedElephant.userId === user[0].userId) {
+      //have access
+      setShowPop(true);
+    } else {
+      setShowAlert(true);
+      setShowPop(false);
+      //you can view only
+    }
+  };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -149,7 +178,7 @@ const PreviewElephantScreen = props => {
             source={require('../../Assets/Images/Icons/back.png')}
           />
         </TouchableOpacity>
-        <TouchableOpacity
+        {/* <TouchableOpacity
           onPress={() => props.navigation.toggleDrawer()}
           style={{}}>
           <Image
@@ -158,7 +187,7 @@ const PreviewElephantScreen = props => {
             resizeMethod="resize"
             source={require('../../Assets/Images/Icons/sidemenu.png')}
           />
-        </TouchableOpacity>
+        </TouchableOpacity> */}
       </View>
       <View
         style={{justifyContent: 'center', marginVertical: moderateScale(20)}}>
@@ -173,32 +202,34 @@ const PreviewElephantScreen = props => {
         </Text>
       </View>
 
-   {userInteraction &&   <TouchableOpacity
-        onPress={() => handleAdd()}
-        style={styles.addButtonContainer}>
-        <View
-          style={{
-            backgroundColor: COLORS.GREEN,
-            height: moderateScale(40),
-            width: moderateScale(40),
-            justifyContent: 'center',
-            alignItems: 'center',
-            borderWidth: 1,
-            borderRadius: moderateScale(5),
-            borderColor: COLORS.GREEN,
-            marginHorizontal: moderateScale(10),
-            marginVertical: moderateScale(20),
-          }}>
-          <Text
+      {userInteraction && (
+        <TouchableOpacity
+          onPress={() => handleAdd()}
+          style={styles.addButtonContainer}>
+          <View
             style={{
-              fontSize: moderateScale(30),
-              fontWeight: '700',
-              color: COLORS.WHITE,
+              backgroundColor: COLORS.GREEN,
+              height: moderateScale(40),
+              width: moderateScale(40),
+              justifyContent: 'center',
+              alignItems: 'center',
+              borderWidth: 1,
+              borderRadius: moderateScale(5),
+              borderColor: COLORS.GREEN,
+              marginHorizontal: moderateScale(10),
+              marginVertical: moderateScale(20),
             }}>
-            +
-          </Text>
-        </View>
-      </TouchableOpacity>}
+            <Text
+              style={{
+                fontSize: moderateScale(30),
+                fontWeight: '700',
+                color: COLORS.WHITE,
+              }}>
+              +
+            </Text>
+          </View>
+        </TouchableOpacity>
+      )}
 
       <View
         style={{
@@ -206,7 +237,7 @@ const PreviewElephantScreen = props => {
           marginHorizontal: moderateScale(10),
           justifyContent: 'center',
         }}>
-        {selectedElephant.images &&  selectedElephant.images.length > 0 ? (
+        {selectedElephant.images && selectedElephant.images.length > 0 ? (
           selectedElephant.images.map(item => (
             <View onPress={selectPhoto} style={styles.imageContainer}>
               <Image
@@ -420,7 +451,7 @@ const PreviewElephantScreen = props => {
                     width: '50%',
                   }}>
                   <Text style={{padding: 5, color: COLORS.BLACK}}>
-                    {selectedElephant.ears.replace('/,/g','\n')}
+                    {selectedElephant.ears.replace('/,/g', '\n')}
                   </Text>
                 </View>
               </View>
@@ -578,6 +609,60 @@ const PreviewElephantScreen = props => {
               </View>
             </View>
           </View>
+
+          <View
+            style={{
+              maxHeight: moderateScale(220),
+              justifyContent: 'space-between',
+            }}>
+            <View style={styles.itemContentContainer}>
+              <View
+                style={{
+                  backgroundColor: COLORS.WHITE,
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                  minHeight: moderateScale(50),
+                }}>
+                <View
+                  style={{
+                    alignItems: 'flex-start',
+                    justifyContent: 'flex-start',
+                    width: '100%',
+                  }}>
+                  <Text style={{padding: 5, color: COLORS.BLACK}}>
+                    Added By
+                  </Text>
+                </View>
+                <View
+                  style={{
+                    alignItems: 'flex-start',
+                    justifyContent: 'flex-start',
+                    width: '100%',
+                    backgroundColor: COLORS.PALE_GREY,
+                    marginBottom:20
+                  }}>
+                  {selectedElephant?.addedBy &&
+                    selectedElephant.addedBy.map(item => (
+                      <View style={{flexDirection:'row',justifyContent:'space-between'}}>
+                       <View style={{flexDirection:'row',width:'70%'}}>
+                        <Text style={{padding: 5, color: COLORS.BLACK}}>
+                            {item.name}
+                          </Text>
+                          <Text style={{padding: 5, color: COLORS.BLACK,marginLeft:20}}>
+                            {new Date(item?.date).toDateString()}
+                          </Text>
+                       </View>
+                       <View style={{flexDirection:'row',width:'30%',justifyContent:'flex-end'}}>
+                         <TouchableOpacity onPress={()=>props.navigation.push('AddElephantScreen',{item:JSON.stringify(selectedElephant)})} style={{marginHorizontal:5}}><Image source={require('../../Assets/Images/Icons/eye.png')}/></TouchableOpacity>
+                         <TouchableOpacity onPress={()=>props.navigation.push('AddElephantScreen',{item:JSON.stringify(selectedElephant),editable:true})} ><Image source={require('../../Assets/Images/Icons/edit.png')}/></TouchableOpacity>
+                       </View>
+                     
+                      </View>
+                    ))}
+                </View>
+              </View>
+            </View>
+          </View>
         </View>
 
         {/* <TouchableOpacity
@@ -598,7 +683,10 @@ const PreviewElephantScreen = props => {
           <Text style={{color: COLORS.WHITE}}>SUBMIT</Text>
         </TouchableOpacity> */}
       </ScrollView>
-
+      {showAlert &&
+        Alert.alert('', 'Are you Sure you would like to add new elephant', [
+          {text: 'OK', onPress: () => handleAddElephant()},
+        ])}
       {showPopUp && (
         <ModalView visible={showPopUp}>
           <View
@@ -623,7 +711,7 @@ const PreviewElephantScreen = props => {
               <View style={{justifyContent: 'center', marginHorizontal: 20}}>
                 <Text
                   style={{alignSelf: 'center', fontSize: moderateScale(15)}}>
-                {  `Are you sure you would like to add data to ${selectedElephant.gender}`}
+                  {`Are you sure you would like to add data to ${selectedElephant.gender}`}
                 </Text>
               </View>
 
@@ -653,10 +741,7 @@ const PreviewElephantScreen = props => {
                   </Text>
                 </TouchableOpacity>
                 <TouchableOpacity
-                  onPress={() => {
-                    setShowPop(false);
-                    
-                  }}
+                  onPress={() => handleEditElephant()}
                   style={{
                     borderWidth: 1,
                     borderRadius: 10,

@@ -194,7 +194,7 @@ export const DrawerScreenNavigator = props => {
           <SafeAreaView style={{flex: 1}}>
             <ScrollView>
               <View>
-                <View style={{backgroundColor: COLORS.PALE_GREY}}>
+                {/* <View style={{backgroundColor: COLORS.PALE_GREY}}>
                   <View
                     style={{
                       height: moderateScale(80),
@@ -225,7 +225,7 @@ export const DrawerScreenNavigator = props => {
                     <Text style={{fontSize:moderateScale(18),color:COLORS.BODY_MUTED,fontWeight:'600'}}>{user.name}</Text>
                     <Text style={{fontSize:moderateScale(16),color:COLORS.BODY_MUTED,fontWeight:'400'}}>{user.email}</Text>
                   </View>
-                </View>
+                </View> */}
               </View>
               <View style={styles.listContainer}>
                 <DrawerItemList {...props} />
@@ -254,7 +254,7 @@ export const DrawerScreenNavigator = props => {
       />
       <DrawerNavigator.Screen
         name="Search"
-        component={SearchScreen}
+        component={DataBaseFormScreen}
         options={{
           // drawerIcon: drawerConfig => <Image width={10} height={10} source={require('../Assets/Images/Icons/groups.png')} />,
           headerMode: 'none',
@@ -263,7 +263,7 @@ export const DrawerScreenNavigator = props => {
        
         }}
       />
-      <DrawerNavigator.Screen
+      {/* <DrawerNavigator.Screen
         name="ContactUs"
         component={ContactUsScreen}
         options={{
@@ -272,8 +272,8 @@ export const DrawerScreenNavigator = props => {
           headerShown: false,
           drawerLabel:'Contact Us',
         }}
-      />
-      <DrawerNavigator.Screen
+      /> */}
+      {/* <DrawerNavigator.Screen
         name="Guide"
         component={GuideScreen}
         options={{
@@ -282,7 +282,7 @@ export const DrawerScreenNavigator = props => {
           headerShown: false,
           drawerLabel:'Guide',
         }}
-      />
+      /> */}
     </DrawerNavigator.Navigator>
   );
 };
