@@ -201,18 +201,23 @@ const DataBaseScreen = props => {
   const applyFiltering = (value, setValue, searchKey) => {
     let previousFilters = {};
     console.log('value', value, searchKey);
+    console.log("list of elephant",elephantData)
     if (value === 'initialValue') {
       setValue(value);
       setElephantList(elephantData);
       return;
     } else {
        previousFilters[searchKey] = value;
+       console.log("pervious filters",previousFilters)
       const filtererdData = elephantData.filter(item => {
+        console.log("item",item)
         // const values= {gender:'male',age:'old',tail:'tail',name:'elephant78'}
         for (let key in previousFilters) {
-          if (item[key] === undefined || item[key] === previousFilters[key]);
-       
-            return true;
+          console.log("key",key)
+          if (item[key] === previousFilters[key]);
+       console.log("itemKEY",item[key])
+       console.log("previousFiltersKey",previousFilters[key])
+            return item;
         }
         return false;
       });

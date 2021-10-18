@@ -200,9 +200,8 @@ const isEditable = props.route?.params?.editable ? props.route?.params?.editable
       tusks &&
       gender &&
       tail &&
-      ears &&
-      comments &&
-      imageArray.length > 0
+      ears 
+      //&& imageArray.length > 0
     ) {
       if (netInfo.isConnected) {
         setLoading(true);
@@ -218,7 +217,7 @@ const isEditable = props.route?.params?.editable ? props.route?.params?.editable
             tusks,
             ears,
             tail,
-            comments,
+            comments:comments,
             addedBy:user
           };
           console.log("INSIDE ADD ELEPHANT ",data)
@@ -233,7 +232,7 @@ const isEditable = props.route?.params?.editable ? props.route?.params?.editable
         ]);
       }
     } else {
-      Alert.alert(MESSAGES.ERROR, 'FILL ALL FIELDS', [{text: MESSAGES.OK}]);
+      Alert.alert(MESSAGES.ERROR, 'FILL ALL FIELD', [{text: MESSAGES.OK}]);
     }
   };
 

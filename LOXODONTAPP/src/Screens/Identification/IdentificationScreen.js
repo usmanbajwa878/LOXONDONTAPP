@@ -195,7 +195,7 @@ console.log("selectedElephant",selectedElephant);
                     borderWidth:1,
                     borderColor:selected.rightear11 ? 'green' : 'transparent',
                     borderRadius:10,
-                    marginLeft:40
+                    marginLeft:moderateScale(40)
                   }}
                   onPress={() => {
                     setSelected({rightear11:true})
@@ -212,7 +212,7 @@ console.log("selectedElephant",selectedElephant);
                       borderWidth:1,
                       borderColor:selected.leftear1 ? 'green' : 'transparent',
                       borderRadius:10,
-                      marginRight:40
+                      marginRight:moderateScale(40)
                     }}
                     onPress={() => {
                       setSelected({leftear1:true})
@@ -232,7 +232,7 @@ console.log("selectedElephant",selectedElephant);
                     borderWidth:1,
                     borderColor:selected.rightear10 ? 'green' : 'transparent',
                     borderRadius:10,
-                    marginLeft:30
+                    marginLeft:moderateScale(30)
                   }}
                   onPress={() => {
                     setSelected({rightear10:true})
@@ -250,7 +250,7 @@ console.log("selectedElephant",selectedElephant);
                     borderWidth:1,
                     borderColor:selected.leftear2 ? 'green' : 'transparent',
                     borderRadius:10,
-                    marginRight:20
+                    marginRight:moderateScale(20)
                   }}
                   onPress={() => {
                     setSelected({leftear2:true})
@@ -271,7 +271,7 @@ console.log("selectedElephant",selectedElephant);
                     borderWidth:1,
                     borderColor:selected.rightear9 ? 'green' : 'transparent',
                     borderRadius:10,
-                    marginLeft:20
+                    marginLeft:moderateScale(20)
                   }}
                   onPress={() => {
                     setSelected({rightear9:true})
@@ -289,7 +289,7 @@ console.log("selectedElephant",selectedElephant);
                     borderWidth:1,
                     borderColor:selected.leftear3 ? 'green' : 'transparent',
                     borderRadius:10,
-                    marginRight:25
+                    marginRight:moderateScale(25)
                   }}
                   onPress={() => {
                     setSelected({leftear3:true})
@@ -316,7 +316,7 @@ console.log("selectedElephant",selectedElephant);
                     borderWidth:1,
                     borderColor:selected.rightear8 ? 'green' : 'transparent',
                     borderRadius:10,
-                    marginLeft:35
+                    marginLeft:moderateScale(35)
                   }}
                   onPress={() => {
                     setSelected({rightear8:true})
@@ -334,7 +334,7 @@ console.log("selectedElephant",selectedElephant);
                     borderWidth:1,
                     borderColor:selected.leftear4 ? 'green' : 'transparent',
                     borderRadius:10,
-                    marginRight:45
+                    marginRight:moderateScale(45)
                   }}
                   onPress={() => {
                     setSelected({leftear4:true})
@@ -388,7 +388,7 @@ console.log("selectedElephant",selectedElephant);
                     borderWidth:1,
                     borderColor:selected.rightear7 ? 'green' : 'transparent',
                     borderRadius:10,
-                    marginLeft:-10
+                    marginLeft:moderateScale(-10)
                   }}
                   onPress={() => {
                     setSelected({rightear7:true})
@@ -406,7 +406,7 @@ console.log("selectedElephant",selectedElephant);
                     borderWidth:1,
                     borderColor:selected.leftear5 ? 'green' : 'transparent',
                     borderRadius:10,
-                    marginRight:2
+                    marginRight:moderateScale(2)
                   }}
                   onPress={() => {
                     setSelected({leftear5:true})
@@ -429,7 +429,7 @@ console.log("selectedElephant",selectedElephant);
                     borderWidth:1,
                     borderColor:selected.tuskT1 ? 'green' : 'transparent',
                     borderRadius:10,
-                    marginLeft:35
+                    marginLeft:moderateScale(35)
                   }}
                   onPress={() => {
                     setSelected({tuskT1:true})
@@ -447,8 +447,8 @@ console.log("selectedElephant",selectedElephant);
                     borderWidth:1,
                     borderColor:selected.tuskT2 ? 'green' : 'transparent',
                     borderRadius:10,
-                    marginLeft:-50,
-                    marginRight:45
+                    marginLeft:moderateScale(-50),
+                    marginRight:moderateScale(45)
                   }}
                   onPress={() => {
                     setSelected({tuskT2:true})
@@ -471,7 +471,7 @@ console.log("selectedElephant",selectedElephant);
                     borderWidth:1,
                     borderColor:selected.leftFL ? 'green' : 'transparent',
                     borderRadius:10,
-                    marginLeft:10
+                    marginLeft:moderateScale(10)
                   }}
                   onPress={() => {
                     setSelected({leftFL:true})
@@ -489,7 +489,7 @@ console.log("selectedElephant",selectedElephant);
                     borderWidth:1,
                     borderColor:selected.rightFL ? 'green' : 'transparent',
                     borderRadius:10,
-                    marginRight:20
+                    marginRight:moderateScale(20)
                   }}
                   onPress={() => {
                     setSelected({rightFL:true})
@@ -511,7 +511,7 @@ console.log("selectedElephant",selectedElephant);
                     borderWidth:1,
                     borderColor:selected.leftS ? 'green' : 'transparent',
                     borderRadius:10,
-                    marginLeft:45
+                    marginLeft:moderateScale(45)
                   }}
                   onPress={() => {
                     setSelected({leftS:true})
@@ -529,7 +529,7 @@ console.log("selectedElephant",selectedElephant);
                     borderWidth:1,
                     borderColor:selected.rightS ? 'green' : 'transparent',
                     borderRadius:10,
-                    marginRight:50
+                    marginRight:moderateScale(50)
                   }}
                   onPress={() => {
                     setSelected({righS:true})
@@ -551,7 +551,7 @@ console.log("selectedElephant",selectedElephant);
                     borderWidth:1,
                     borderColor:selected.leftB ? 'green' : 'transparent',
                     borderRadius:10,
-                    marginLeft:25
+                    marginLeft:moderateScale(25)
                   }}
                   onPress={() => {
                     setSelected({leftB:true})
@@ -569,7 +569,7 @@ console.log("selectedElephant",selectedElephant);
                     borderWidth:1,
                     borderColor:selected.rightB ? 'green' : 'transparent',
                     borderRadius:10,
-                    marginRight:30
+                    marginRight:moderateScale(30)
                   }}
                   onPress={() => {
                     setSelected({rightB:true})
@@ -583,14 +583,14 @@ console.log("selectedElephant",selectedElephant);
               <View style={{flexDirection:'row',marginHorizontal:110,justifyContent:'space-between',marginTop:100}}>
                 <TouchableOpacity
                   style={{
-                    backgroundColor: selected.leftRL ? 'green' : 'transparent',
+                    backgroundColor: selected.leftRL ? 'green' : 'green',
                     height: moderateScale(15),
                     marginTop: moderateScale(-70),
                     width: moderateScale(15),
                     borderWidth:1,
-                    borderColor:selected.leftRL ? 'green' : 'transparent',
+                    borderColor:selected.leftRL ? 'green' : 'green',
                     borderRadius:10,
-                    marginLeft:20
+                    marginLeft:moderateScale(20)
                   }}
                   onPress={() => {
                     setSelected({leftRL:true})
@@ -601,14 +601,14 @@ console.log("selectedElephant",selectedElephant);
                 />
                 <TouchableOpacity
                   style={{
-                    backgroundColor: selected.rightRL ? 'green' : 'transparent',
+                    backgroundColor: selected.rightRL ? 'green' : 'green',
                     height: moderateScale(15),
                     marginTop: moderateScale(-70),
                     width: moderateScale(15),
                     borderWidth:1,
-                    borderColor:selected.rightRL ? 'green' : 'transparent',
+                    borderColor:selected.rightRL ? 'green' : 'green',
                     borderRadius:10,
-                    marginRight:30
+                    marginRight:moderateScale(30)
                   }}
                   onPress={() => {
                     setSelected({rightRL:true})

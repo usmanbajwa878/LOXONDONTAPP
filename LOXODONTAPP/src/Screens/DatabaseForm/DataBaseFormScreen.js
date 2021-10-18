@@ -200,7 +200,6 @@ const DataBaseFormScreen = props => {
   };
   const fileUploadRequest = async () => {
     let pushedImages = [];
-    setIs
     imageArray.map(item => {
       createFileUploadNetworkRequest('POST', 'fileUpload', item).then(
         response => {
@@ -220,9 +219,8 @@ const DataBaseFormScreen = props => {
       age &&
       tusks &&
       gender &&
-      tail &&
-      comments &&
-      imageArray.length > 0
+      tail 
+      //&& imageArray.length > 0
     ) {
       if (netInfo.isConnected) {
         setLoading(true);
@@ -250,8 +248,14 @@ const DataBaseFormScreen = props => {
           {text: MESSAGES.OK},
         ]);
       }
-    } else {
+    } else if(  !age &&
+      !tusks &&
+      !gender &&
+      !tail &&
+      imageArray.length > 0) {
       Alert.alert(MESSAGES.ERROR, 'FILL ALL FIELDS', [{text: MESSAGES.OK}]);
+    }else {
+      Alert.alert(MESSAGES.ERROR, 'KINDLY UPLOAD IMAGES', [{text: MESSAGES.OK}]);
     }
   };
 

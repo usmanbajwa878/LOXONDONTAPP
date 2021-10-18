@@ -94,7 +94,7 @@ const LoginScreen = props => {
               onChangeText={text => setEmail(text)}
               placeholder={PLACEHOLDERS.EMAIL}
               placeholderTextColor={COLORS.BODY_MUTED}
-              style={styles.input}
+              style={[styles.input, { width:'95%'}]}
             />
           </View>
           <View
@@ -109,12 +109,13 @@ const LoginScreen = props => {
               placeholder={PLACEHOLDERS.PASSWORD}
               secureTextEntry={showPassword}
               placeholderTextColor={COLORS.BODY_MUTED}
-              style={[styles.input, { width: '90%' }]}
+              style={[styles.input, {width:'90%'}]}
             />
             <TouchableOpacity
               onPress={handleShow}
-              style={{height: 20, width: 20, marginTop: 15, marginLeft: 5}}>
-              <Image style={{ width: 20, height: 20 }}
+              style={{height: moderateScale(30), width: moderateScale(30), justifyContent:'center',alignItems
+              :'center',marginTop:20}}>
+              <Image style={{ width: 30, height: 30,alignSelf:'center' }}
                             source={showPassword ?
                                 require('../../Assets/Images/Icons/HidePassword.png')
                                 :
@@ -169,7 +170,7 @@ const LoginScreen = props => {
               <TouchableOpacity
                 style={styles.forgetPasswordBtn}
                 onPress={()=>props.navigation.push('ForgetPassword')}>
-                <Text style={styles.policyText}>ForgetPassword</Text>
+                <Text style={styles.policyText}>ForgotPassword</Text>
               </TouchableOpacity>
             </View>
           </View>

@@ -13,8 +13,8 @@ export const IdentificationOptions = [
           selected:false
         },
         {
-          name: 'CALF',
-          value: 'CALF',
+          name: 'UNSURE',
+          value: 'UNSURE',
           selected:false
         },
       ],
@@ -54,32 +54,32 @@ export const IdentificationOptions = [
       options: [
         {
           name: 'BOTH TUSKS',
-          value: 'TUSKS',
+          value: 'BOTHTUSKS',
           selected:false
         },
         {
           name: 'NO TUSKS',
-          value: 'NO TUSKS',
+          value: 'NOTUSKS',
           selected:false
         },
         {
           name: 'ONLY LEFT TUSK',
-          value: 'ONLY LEFT TUSK',
+          value: 'ONLYLEFTTUSK',
           selected:false
         },
         {
           name: 'ONLY RIGHT TUSK',
-          value: 'ONLY RIGHT TUSK',
+          value: 'ONLYRIGHTTUSK',
           selected:false
         },
         {
           name: 'LEFT > RIGHT',
-          value: 'LEFT > RIGHT',
+          value: 'LEFT>RIGHT',
           selected:false
         },
         {
           name: 'LEFT < RIGHT',
-          value: 'LEFT < RIGHT',
+          value: 'LEFT<RIGHT',
           selected:false
         },
       ],
@@ -99,17 +99,17 @@ export const IdentificationOptions = [
         },
         {
           name: 'ONLY LEFT HAIR',
-          value: 'ONLY LEFT HAIR',
+          value: 'ONLYLEFTHAIR',
           selected:false
         },
         {
           name: 'ONLY RIGHT HAIR',
-          value: 'ONLY RIGHT HAIR',
+          value: 'ONLYRIGHTHAIR',
           selected:false
         },
         {
           name: 'NO HAIR',
-          value: 'NO HAIR',
+          value: 'NOHAIR',
           selected:false
         },
       ],
